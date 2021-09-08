@@ -13,37 +13,37 @@
 #include <glm/gtc/type_ptr.hpp>
 
 using namespace glm;
-// КЛАСС ДЛЯ РАБОТЫ С КАМЕРОЙ
+// РљР›РђРЎРЎ Р”Р›РЇ Р РђР‘РћРўР« РЎ РљРђРњР•Р РћР™
 class Camera
 {
 public:
-	// конструкторы
+	// РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹
 	Camera();
 	Camera(vec3 position);
 	Camera(float x, float y, float z);
 
-	// установка и получение позиции камеры
+	// СѓСЃС‚Р°РЅРѕРІРєР° Рё РїРѕР»СѓС‡РµРЅРёРµ РїРѕР·РёС†РёРё РєР°РјРµСЂС‹
 	void setPosition(vec3 position);
 	vec3 getPosition();
 
-	//функции для перемещения камеры
+	//С„СѓРЅРєС†РёРё РґР»СЏ РїРµСЂРµРјРµС‰РµРЅРёСЏ РєР°РјРµСЂС‹
 	void rotateLeftRight(float degree);
 	void rotateUpDown(float degree);
 	void zoomInOut(float distance);
 
-	// функция для установки матрицы камеры
+	// С„СѓРЅРєС†РёСЏ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё РјР°С‚СЂРёС†С‹ РєР°РјРµСЂС‹
 	void apply();
 
 private:
-	// перерасчет позиции камеры после поворотов
+	// РїРµСЂРµСЂР°СЃС‡РµС‚ РїРѕР·РёС†РёРё РєР°РјРµСЂС‹ РїРѕСЃР»Рµ РїРѕРІРѕСЂРѕС‚РѕРІ
 	void recalculatePosition();
 
 private:
-	// радиус и углы поворота
+	// СЂР°РґРёСѓСЃ Рё СѓРіР»С‹ РїРѕРІРѕСЂРѕС‚Р°
 	float r;
 	float angleX;
 	float angleY;
 
-	// позиция камеры
+	// РїРѕР·РёС†РёСЏ РєР°РјРµСЂС‹
 	vec3 position;
 };

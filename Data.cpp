@@ -1,21 +1,21 @@
 #include "Data.h"
 
-// используемые пространства имен
+// РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РїСЂРѕСЃС‚СЂР°РЅСЃС‚РІР° РёРјРµРЅ
 using namespace glm;
 
-// все игровые объекты
+// РІСЃРµ РёРіСЂРѕРІС‹Рµ РѕР±СЉРµРєС‚С‹
 std::shared_ptr<GameObject> mapObjects[21][21];
 std::shared_ptr<GameObject> player;
 std::shared_ptr<GameObject> monsters[countMonters];
 std::shared_ptr<GameObject> bomb;
 
-// объект для камеры
+// РѕР±СЉРµРєС‚ РґР»СЏ РєР°РјРµСЂС‹
 Camera camera;
 
-// объект для освещенности
+// РѕР±СЉРµРєС‚ РґР»СЏ РѕСЃРІРµС‰РµРЅРЅРѕСЃС‚Рё
 Light light;
 
-// карта проходимости
+// РєР°СЂС‚Р° РїСЂРѕС…РѕРґРёРјРѕСЃС‚Рё
 int passabilityMap[21][21] = {
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 3,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,2,0,0,0,3,
@@ -40,29 +40,29 @@ int passabilityMap[21][21] = {
 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
 };
 
-// графический объект для плоскости (частный случай)
+// РіСЂР°С„РёС‡РµСЃРєРёР№ РѕР±СЉРµРєС‚ РґР»СЏ РїР»РѕСЃРєРѕСЃС‚Рё (С‡Р°СЃС‚РЅС‹Р№ СЃР»СѓС‡Р°Р№)
 GraphicObject planeGraphicObject;
 
-// фабрика для создания игровых объектов
+// С„Р°Р±СЂРёРєР° РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РёРіСЂРѕРІС‹С… РѕР±СЉРµРєС‚РѕРІ
 GameObjectFactory gameObjectFactory;
 
-// функция для инициализации всех общих данных (камера, объекты и т.д.)
+// С„СѓРЅРєС†РёСЏ РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РІСЃРµС… РѕР±С‰РёС… РґР°РЅРЅС‹С… (РєР°РјРµСЂР°, РѕР±СЉРµРєС‚С‹ Рё С‚.Рґ.)
 void 
 Data()
 {
 
-	// ПОЛУЧЕНИЕ ИНФОРМАЦИИ ОБ OPENGL
+	// РџРћР›РЈР§Р•РќРР• РРќР¤РћР РњРђР¦РР РћР‘ OPENGL
 	printf("GL_VENDOR = %s\n", glGetString(GL_VENDOR));
 	printf("GL_RENDERER = %s\n", glGetString(GL_RENDERER));
 	printf("GL_VERSION = %s\n\n", glGetString(GL_VERSION));
 
-	// инициализация фабрики (в дальнейшем на основе json-файла)
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С„Р°Р±СЂРёРєРё (РІ РґР°Р»СЊРЅРµР№С€РµРј РЅР° РѕСЃРЅРѕРІРµ json-С„Р°Р№Р»Р°)
 	gameObjectFactory.init("data\\GameObjectsDescription.json");
 
-	// инициализация камеры
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєР°РјРµСЂС‹
 	camera.setPosition(vec3(20, 25, 17.5));
 
-	// инициализация освещенности 
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕСЃРІРµС‰РµРЅРЅРѕСЃС‚Рё 
 	{
 		light.setPosition(vec3(20.0, 20.0, 15.0));
 		light.setAmbient(vec4(0.4, 0.4, 0.4, 1.0));
@@ -70,27 +70,27 @@ Data()
 		light.setSpecular(vec4(1.0, 1.0, 1.0, 1.0));
 	}
 
-	// графический объект для плоскости (частный случай)
-	// установка меша для плоскости
+	// РіСЂР°С„РёС‡РµСЃРєРёР№ РѕР±СЉРµРєС‚ РґР»СЏ РїР»РѕСЃРєРѕСЃС‚Рё (С‡Р°СЃС‚РЅС‹Р№ СЃР»СѓС‡Р°Р№)
+	// СѓСЃС‚Р°РЅРѕРІРєР° РјРµС€Р° РґР»СЏ РїР»РѕСЃРєРѕСЃС‚Рё
 	planeGraphicObject.setPosition(vec3(0.0, 0.0, 0.0));
 	std::shared_ptr<Mesh> planeMesh = std::make_shared<Mesh>();
 	planeMesh->load("data\\meshes\\HighPolyPlane.obj");
 	planeGraphicObject.setMesh(planeMesh);
 
-	// загрузка текстуры для плоскости
+	// Р·Р°РіСЂСѓР·РєР° С‚РµРєСЃС‚СѓСЂС‹ РґР»СЏ РїР»РѕСЃРєРѕСЃС‚Рё
 	std::shared_ptr<Texture> planeTexture = std::make_shared<Texture>();
 	planeTexture->load("data\\textures\\plane.jpg");
 
-	// установка материала для плоскости
+	// СѓСЃС‚Р°РЅРѕРІРєР° РјР°С‚РµСЂРёР°Р»Р° РґР»СЏ РїР»РѕСЃРєРѕСЃС‚Рё
 	std::shared_ptr<PhongMaterialWithTexture> planeMaterial = std::make_shared<PhongMaterialWithTexture>();
 	planeMaterial->load("data\\materials\\PlaneMaterial.txt");
 	planeMaterial->setTexture(planeTexture);
 	planeGraphicObject.setMaterial(planeMaterial);
 
-	// инициализация главного героя
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РіР»Р°РІРЅРѕРіРѕ РіРµСЂРѕСЏ
 	player = gameObjectFactory.create(GameObjectType::PLAYER, 19, 1);
 
-	// инициализация монстров
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РјРѕРЅСЃС‚СЂРѕРІ
 	monsters[0] = gameObjectFactory.create(GameObjectType::MONSTER, 1, 19);
 	passabilityMap[1][19] = 4;
 	monsters[1] = gameObjectFactory.create(GameObjectType::MONSTER, 19, 19);
@@ -98,10 +98,10 @@ Data()
 	monsters[2] = gameObjectFactory.create(GameObjectType::MONSTER, 1, 1);
 	passabilityMap[1][1] = 4;
 
-	// инициализация бомбы
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ Р±РѕРјР±С‹
 	bomb = gameObjectFactory.create(GameObjectType::BOMB, 0, 0);
 
-	// инициализация объектов сцены
+	// РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕР±СЉРµРєС‚РѕРІ СЃС†РµРЅС‹
 	for (int i = 0; i < 21; i++) {
 		for (int j = 0; j < 21; j++) {
 			switch (passabilityMap[i][j]) {

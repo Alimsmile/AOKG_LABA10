@@ -25,33 +25,33 @@
 #include "Texture.h"
 #include "PhongMaterialWithTexture.h"
 
-// количество монстров на карте
+// РєРѕР»РёС‡РµСЃС‚РІРѕ РјРѕРЅСЃС‚СЂРѕРІ РЅР° РєР°СЂС‚Рµ
 const unsigned char countMonters = 3;
 
-// объект для камеры
+// РѕР±СЉРµРєС‚ РґР»СЏ РєР°РјРµСЂС‹
 extern Camera camera;
 
-// объект для освещенности
+// РѕР±СЉРµРєС‚ РґР»СЏ РѕСЃРІРµС‰РµРЅРЅРѕСЃС‚Рё
 extern Light light;
 
-// список игровых объектов расположенных на карте
+// СЃРїРёСЃРѕРє РёРіСЂРѕРІС‹С… РѕР±СЉРµРєС‚РѕРІ СЂР°СЃРїРѕР»РѕР¶РµРЅРЅС‹С… РЅР° РєР°СЂС‚Рµ
 extern std::shared_ptr<GameObject> mapObjects[21][21];
 extern std::shared_ptr<GameObject> player;
 extern std::shared_ptr<GameObject> monsters[countMonters];
 extern std::shared_ptr<GameObject> bomb;
 
-// графический объект для плоскости (частный случай)
+// РіСЂР°С„РёС‡РµСЃРєРёР№ РѕР±СЉРµРєС‚ РґР»СЏ РїР»РѕСЃРєРѕСЃС‚Рё (С‡Р°СЃС‚РЅС‹Р№ СЃР»СѓС‡Р°Р№)
 extern GraphicObject planeGraphicObject; 
 
-// скорость изменения камеры
+// СЃРєРѕСЂРѕСЃС‚СЊ РёР·РјРµРЅРµРЅРёСЏ РєР°РјРµСЂС‹
 const float speedRotate = 90;
 const float speedZoom = 10;
 
-// функция для инициализации всех общих данных (камера, объекты и т.д.)
+// С„СѓРЅРєС†РёСЏ РґР»СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РІСЃРµС… РѕР±С‰РёС… РґР°РЅРЅС‹С… (РєР°РјРµСЂР°, РѕР±СЉРµРєС‚С‹ Рё С‚.Рґ.)
 void initData();
 
-// карта проходимости
+// РєР°СЂС‚Р° РїСЂРѕС…РѕРґРёРјРѕСЃС‚Рё
 extern int passabilityMap[21][21];
 
-// текстура для плоскости
+// С‚РµРєСЃС‚СѓСЂР° РґР»СЏ РїР»РѕСЃРєРѕСЃС‚Рё
 extern Texture planeTexture;
